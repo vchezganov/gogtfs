@@ -1,7 +1,10 @@
 //Done
 package model
 
-import "errors"
+import (
+	"errors"
+	"strconv"
+)
 
 type StopTimePickupType byte
 
@@ -57,7 +60,7 @@ type StopTime struct {
 	DropOffType       StopTimeDropOffType       `csv:"drop_off_type,ParseDropOffType"`
 	ContinuousPickup  StopTimeContinuousPickup  `csv:"continuous_pickup,ParseContinuousPickup"`
 	ContinuousDropOff StopTimeContinuousDropOff `csv:"continuous_drop_off,ParseContinuousDropOff"`
-	ShapeDistTraveled float64                   `csv:"shape_dist_traveled"`
+	ShapeDistTraveled float64                   `csv:"shape_dist_traveled,ParseShapeDistTraveled"`
 	Timepoint         StopTimeTimepoint         `csv:"timepoint,ParseTimepoint"`
 }
 
@@ -167,6 +170,16 @@ func (s *StopTime) ParseContinuousDropOff(value string) (err error) {
 	}
 
 	return nil
+}
+
+func (s *StopTime) ParseShapeDistTraveled(value string) (err error) {
+	if value == "" {
+		s.ShapeDistTraveled = 0
+		return nil
+	}
+
+	s.ShapeDistTraveled, err = strconv.ParseFloat(value, 64)
+	return
 }
 
 func (s *StopTime) ParseTimepoint(value string) (err error) {
