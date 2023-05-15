@@ -1,4 +1,4 @@
-//Done
+// Done
 package model
 
 import (
@@ -80,11 +80,11 @@ func (s *StopTime) ParseArrivalTime(value string) (err error) {
 
 func (s *StopTime) ParseDepartureTime(value string) (err error) {
 	if value == "" {
-		s.ArrivalTime = NewEmptyGTFSTime()
+		s.DepartureTime = NewEmptyGTFSTime()
 		return nil
 	}
 
-	s.ArrivalTime, err = NewGTFSTime(value)
+	s.DepartureTime, err = NewGTFSTime(value)
 	return
 }
 
